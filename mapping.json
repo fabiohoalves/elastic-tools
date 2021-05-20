@@ -1,0 +1,39 @@
+{"settings": {
+    "analysis": {
+          "analyzer": {
+              "idx_email_analyzer": {
+                  "type": "custom",
+                  "tokenizer": "uax_url_email",
+                  "filter": [
+                      "lowercase",
+                      "stop"
+                  ]
+              },
+              "whitespace_lowercase": {
+                "tokenizer": "whitespace",
+                "filter": [ "lowercase" ]
+              }
+          }
+      }
+  },
+  "mappings": {
+      "_routing": {
+        "required": true 
+      },
+      "properties": {
+          "email": {
+            "type": "text",
+            "analyzer": "idx_email_analyzer"
+          },
+          "creationDate": {
+            "type": "date",
+            "format": "yyyy-MM-dd HH:mm:ss"
+          },
+          "tags": {
+            "type": "text",
+            "fielddata": true,
+            "analyzer": "whitespace_lowercase"
+          }          
+      }
+  }
+}
